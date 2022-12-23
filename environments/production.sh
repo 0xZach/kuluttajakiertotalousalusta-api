@@ -1,0 +1,26 @@
+#APP
+export APP_ENV=production
+export PORT=
+export DEVELOPMENT=false
+
+#Database
+export DB_URL=$DB_URL
+export DB_USER=$DB_USER
+export DB_PASSWORD=$DB_PASSWORD
+
+#JWT
+export JWT_SECRET=$JWT_SECRET
+
+#GCP Service
+export SERVICE_ACCOUNT=$SERVICE_ACCOUNT
+export CREDENTIALS_FILE_PATH='/api-resources/credentials.json'
+
+#AWS
+export AWS_BUCKET=$AWS_BUCKET
+export AWS_S3_REGION=$AWS_S3_REGION
+export AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+export AWS_SECRET_KEY=$AWS_SECRET_KEY
+export AWS_S3_PREFIX=$AWS_S3_PREFIX
+
+#ADMIN
+ADMIN_SECRET=$ADMIN_SECRET

@@ -1,0 +1,2 @@
+ALTER TABLE PROBLEMS
+ADD COLUMN search_terms varchar(255);

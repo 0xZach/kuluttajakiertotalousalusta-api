@@ -1,0 +1,50 @@
+<configuration>
+    <timestamp key="timestamp" datePattern="dd-MM-YYYY"/>
+
+    <property name="pattern" value="%d{dd-MM-YYYY HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+
+
+    <appender name="APP-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${application.home:-.}/logs/app/${timestamp}.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="CONSOLE-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${application.home:-.}/logs/console/${timestamp}.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+    <logger name="console" level="ALL" additivity="true">
+        <appender-ref ref="CONSOLE-FILE"/>
+    </logger>
+
+    <appender name="API-FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${application.home:-.}/logs/api/${timestamp}.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+    <logger name="api" level="ALL" additivity="true">
+        <appender-ref ref="API-FILE"/>
+    </logger>
+
+    <root level="trace">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="APP"/>
+    </root>
+
+
+</configuration>

@@ -1,0 +1,8 @@
+ALTER TABLE RESULTS
+DROP COLUMN service_type;
+
+ALTER TABLE RESULTS
+ADD COLUMN content_type varchar(255);
+
+ALTER TABLE RESULTS
+ADD COLUMN tutorial_image text;
