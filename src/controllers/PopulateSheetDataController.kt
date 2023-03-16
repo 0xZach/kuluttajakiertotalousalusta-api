@@ -42,15 +42,15 @@ suspend fun populateSheetData(call: ApplicationCall) {
             counter++
         }
 
-        uploadToS3(
+        /*uploadToS3(
             keyName = "${Timestamp(System.currentTimeMillis()).toString().replace(' ', 'T')}.sql",
             filePath = "/opt/api/dumps/${LocalDate.now()}.sql",
             contentType = ContentType.Text.Html.toString()
-        )
+        )*/
 
         DatabaseFactory.dbQuery {
             val truncateTables =
-                "TRUNCATE categories, items, problem_services, problems, results, services RESTART identity CASCADE;"
+                "TRUNCATE categories, items, problem_services, problems, results, services, logs, postal RESTART identity CASCADE;"
 
             truncateTables.queryDB()
         }
