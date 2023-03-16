@@ -26,6 +26,8 @@ suspend fun populateSheetData(call: ApplicationCall) {
         val problems = sheet.getProblems()
         val results = sheet.getResults()
         val services = sheet.getServices()
+        val logs = sheet.getLogs()
+        val postals = sheet.getPostal()
 
         val dumpProcess = Runtime.getRuntime().exec("sh dump.sh")
         var counter = 0
@@ -287,6 +289,50 @@ suspend fun populateSheetData(call: ApplicationCall) {
                     )
                 }
             }
+        }
+
+        // only need to create the replica of the logs already in the Google sheet
+        logs.forEach{ itLogs ->
+            LogsRepo.create(
+                Logs(
+                    id = itLogs.logsId.toLong(),
+                    logsTime = itLogs.logsTime,
+                    keywordEn = itLogs.keywordEn,
+                    keywordFi = itLogs.keywordFi,
+                    destinationUrl = itLogs.destinationUrl,
+                    serviceName = itLogs.serviceName,
+                    serviceTypeName = itLogs.serviceTypeName,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
+                )
+            )
+        }
+
+
+        postals.forEach {
+            PostalRepo.create(
+                Postal(
+                    lang = "FI",
+                    id = it.postalId.toLong(),
+                    postalCode = it.postalCode,
+                    streetName = it.streetNameFI,
+                    municipality = it.municipalityFI,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis(),
+                )
+            )
+
+            PostalRepo.create(
+                Postal(
+                    lang = "SV",
+                    id = it.postalId.toLong(),
+                    postalCode = it.postalCode,
+                    streetName = it.streetNameSV,
+                    municipality = it.municipalitySV,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis(),
+                )
+            )
         }
 
         call.respondSuccess("Migrated successfully", "CATEGORIES")

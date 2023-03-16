@@ -224,6 +224,80 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         }
     }
 
+
+    fun getLogs(): MutableList<LogsPayload> {
+        return mutableListOf<LogsPayload>().apply {
+            addAll(this@SpreadSheetUtil.get("Logs").map {
+                return@map LogsPayload(
+                    logsId = it[0]?.toInt()!!,
+                    logsTime = it[1]!!,
+                    keywordEn = it[2]!!,
+                    keywordFi = it[3]!!,
+                    destinationUrl = it[4]!!,
+                    serviceName = it[5]!!,
+                    serviceTypeName = it[6]!!,
+                )
+            }.toTypedArray())
+        }
+    }
+
+
+
+    private fun getMunicipalities(): MutableList<MunicipalityPayload> {
+        return mutableListOf<MunicipalityPayload>().apply {
+            addAll(this@SpreadSheetUtil.get("Postal_code_municipalities").map{
+                return@map MunicipalityPayload(
+                    postalCode = it[0]!!,
+                    municipalityFI = it[1]!!,
+                    municipalitySV = it[2]!!,
+                )
+            })
+        }
+    }
+
+    private fun getStreets(): MutableList<StreetPayload> {
+        return mutableListOf<StreetPayload>().apply {
+            addAll(this@SpreadSheetUtil.get("Postal_code_streets")
+                .map{
+                    return@map StreetPayload(
+                        postalCode = it[0]!!,
+                        streetNameFI = it[1]!!,
+                        streetNameSV = it[2]!!,
+                    )
+                })
+        }
+    }
+
+
+    fun getPostal(): MutableList<PostalPayload> {
+        var muniPay = getMunicipalities()
+        var streetPay = getStreets()
+
+        var postPay = mutableListOf<PostalPayload>()
+
+        for (municipality in muniPay) {
+            for (street in streetPay){
+                if (municipality.postalCode.toInt() == street.postalCode.toInt()){
+                    postPay.add(
+                        PostalPayload(
+                            postalId = postPay.size+1,
+                            postalCode = municipality.postalCode,
+                            streetNameFI = street.streetNameFI,
+                            streetNameSV = street.streetNameSV,
+                            municipalityFI = municipality.municipalityFI,
+                            municipalitySV = municipality.municipalitySV,
+                        )
+                    )
+                }
+            }
+        }
+        return postPay
+
+
+    }
+
+
+
     private fun dataTypeChecker(data: String, index: Int): Any? {
         return try {
             return when (columnType[index]) {
