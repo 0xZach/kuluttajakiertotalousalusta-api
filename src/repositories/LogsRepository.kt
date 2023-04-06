@@ -13,14 +13,18 @@ class LogsRepository {
         LogsModel.all().map { it.toLogs() }
     }
 
+    suspend fun getCount(): Long = dbQuery {
+        LogsModel.count()
+    }
+
     suspend fun create(Logs: Logs): Logs = dbQuery {
         LogsModel.new {
-            logsTime = Logs.logsTime
-            keywordEn = Logs.keywordEn
-            keywordFi = Logs.keywordFi
-            destinationUrl = Logs.destinationUrl
-            serviceName = Logs.serviceName
-            serviceTypeName = Logs.serviceTypeName
+            logTimestamp = Logs.logTimestamp!!
+            keywordEn = Logs.keywordEn!!
+            keywordFi = Logs.keywordFi!!
+            destinationUrl = Logs.destinationUrl!!
+            serviceName = Logs.serviceName!!
+            serviceTypeName = Logs.serviceTypeName!!
             createdAt = System.currentTimeMillis()
             updatedAt = System.currentTimeMillis()
         }.toLogs()
@@ -31,7 +35,7 @@ class LogsRepository {
         val data = LogsModel.findById(Logs.id)
         requireNotNull(data) { "No data found for id ${Logs.id}" }
 
-        data.logsTime = Logs.logsTime
+        data.logTimestamp = Logs.logTimestamp
         data.keywordEn = Logs.keywordEn
         data.keywordFi = Logs.keywordFi
         data.destinationUrl = Logs.destinationUrl

@@ -3,6 +3,8 @@ package com.turku.repositories
 import com.turku.DatabaseFactory.dbQuery
 import com.turku.models.*
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.max
+import org.jetbrains.exposed.sql.selectAll
 
 class ResultRepository {
     suspend fun getById(id: Long): Result? = dbQuery {
@@ -17,6 +19,17 @@ class ResultRepository {
         ResultModel.find { ResultTable.problemId eq problemId and (ResultTable.lang eq lang) }.map { it.toResult() }
     }
 
+    suspend fun getCount(): Long = dbQuery {
+        ResultModel.count()
+    }
+
+    suspend fun newAppResultId(): Long = dbQuery {
+        ResultTable
+            .slice(ResultTable.appResultId.max())
+            .selectAll()
+            .maxByOrNull { ResultTable.appResultId }
+            ?.get(ResultTable.appResultId.max())!!.plus(2)
+    }
     suspend fun create(result: Result): Result = dbQuery {
         ResultModel.new {
             appResultId = result.appResultId

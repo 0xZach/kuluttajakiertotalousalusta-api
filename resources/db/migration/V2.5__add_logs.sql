@@ -1,11 +1,11 @@
 CREATE TABLE logs(
 	id bigserial PRIMARY KEY,
-  	logsTime varchar(255) NOT NULL,
-  	keywordEn varchar(255) NOT NULL,
-  	keywordFi varchar(255) NOT NULL,
-  	destinationUrl varchar(255) NOT NULL,
-  	serviceName varchar(255) NOT NULL,
-  	serviceTypeName varchar(255) NOT NULL,
+  	log_timestamp varchar(255) NOT NULL,
+  	keyword_en varchar(255) NOT NULL,
+  	keyword_fi varchar(255) NOT NULL,
+  	destination_url varchar(255) NOT NULL,
+  	service_name varchar(255) NOT NULL,
+  	service_type_name varchar(255) NOT NULL,
   	created_at bigint,
     updated_at bigint
 );

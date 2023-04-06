@@ -4,9 +4,6 @@ import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import com.turku.controllers.getLogs
 import com.turku.controllers.setLogs
-import com.turku.payload.LogsPayload
-import io.ktor.server.request.*
-import io.ktor.server.response.*
 
 fun Application.LogsRoute() {
     routing {

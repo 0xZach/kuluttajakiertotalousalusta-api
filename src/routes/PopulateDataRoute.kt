@@ -11,7 +11,7 @@ fun Application.PopulateDataRoute() {
 }
 
 fun Route.populateSheetData() {
-    post("/populate-sheet-data") {
+    post ("/populate-sheet-data") {
         populateSheetData(call)
     }
 }

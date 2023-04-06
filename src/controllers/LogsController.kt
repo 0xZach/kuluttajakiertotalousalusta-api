@@ -9,7 +9,6 @@ import com.turku.payload.LogsPayload
 import com.turku.repositories.LogsRepo
 import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
 
 suspend fun getLogs(call: ApplicationCall) {
     try {
@@ -27,8 +26,8 @@ suspend fun setLogs(call: ApplicationCall){
         val body = call.receive<LogsPayload>()
         LogsRepo.create(
             Logs(
-                id = (LogsRepo.getAll()).count().toLong() + 1,
-                logsTime = body.logsTime,
+                id = LogsRepo.getCount() + 1,
+                logTimestamp = body.logTimestamp,
                 keywordEn = body.keywordEn,
                 keywordFi = body.keywordFi,
                 destinationUrl = body.destinationUrl,
@@ -38,6 +37,7 @@ suspend fun setLogs(call: ApplicationCall){
                 updatedAt = System.currentTimeMillis()
             )
         )
+        call.respondSuccess("INSERT SUCCESSFUL")
     } catch (error: Exception) {
         ApplicationLogger.api("Failed to insert new logs", error.printStackTrace())
         call.respondSomethingWentWrong()

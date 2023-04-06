@@ -4,8 +4,11 @@ import com.turku.common.ApplicationLogger
 import com.turku.common.respondSomethingWentWrong
 import com.turku.common.respondSuccess
 import com.turku.models.Postal
+import com.turku.models.Result
+import com.turku.payload.LocalizedResultPayload
 import com.turku.repositories.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 
 suspend fun getProblemResults(call: ApplicationCall) {
     val problemId = call.parameters["problemId"]!!
@@ -37,7 +40,9 @@ suspend fun getProblemResults(call: ApplicationCall) {
         call.respondSuccess(
             mapOf(
                 "results" to results,
+                "itemId" to item?.id,
                 "itemName" to item?.name,
+                "categoryId" to problem.appCategoryId,
                 "problemName" to problem.problem,
                 "services" to services,
                 "municipalities" to municipalities
@@ -47,4 +52,36 @@ suspend fun getProblemResults(call: ApplicationCall) {
         ApplicationLogger.api("Failed to fetch results", error.printStackTrace())
         call.respondSomethingWentWrong()
     }
+}
+
+
+suspend fun insertResult(call: ApplicationCall){
+    try{
+        val body = call.receive<LocalizedResultPayload>()
+        ResultRepo.create(
+            Result(
+                id = ResultRepo.getCount() + 1,
+                appResultId = ResultRepo.newAppResultId(),
+                problemId = body.problemId.toLong(),
+                itemId = body.itemId.toLong(),
+                categoryId = body.categoryId.toLong(),
+                appContentTypeId = body.contentTypeId?.toLong(),
+                appSkillLevelId = body.skillLevelId?.toLong(),
+                lang = body.lang,
+                tutorialName = body.tutorialName,
+                tutorialIntro = body.tutorialIntro,
+                tutorialUrl = body.tutorialUrl,
+                tutorialImage = body.tutorialImage,
+                minCost = body.minCostEuro,
+                minTime = body.minTime,
+                createdAt = System.currentTimeMillis(),
+                updatedAt = System.currentTimeMillis()
+            )
+        )
+        call.respondSuccess("INSERT SUCCESSFUL")
+    } catch (error: Exception) {
+        ApplicationLogger.api("Failed to insert new result", error.printStackTrace())
+        call.respondSomethingWentWrong()
+    }
+
 }

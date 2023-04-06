@@ -5,12 +5,9 @@ import com.turku.common.*
 import com.turku.models.*
 import com.turku.payload.PopulateSheetDataPayload
 import com.turku.repositories.*
-import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import kotlinx.coroutines.delay
-import java.sql.Timestamp
-import java.time.LocalDate
 
 suspend fun populateSheetData(call: ApplicationCall) {
     try {
@@ -21,6 +18,8 @@ suspend fun populateSheetData(call: ApplicationCall) {
 
         val body = call.receive<PopulateSheetDataPayload>()
         val sheet = SpreadSheetUtil(body.sheetId)
+        val skillLevels = sheet.getSkillLevels()
+        val contentTypes = sheet.getContentTypes()
         val categories = sheet.getCategories()
         val items = sheet.getItems()
         val problems = sheet.getProblems()
@@ -28,6 +27,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
         val services = sheet.getServices()
         val logs = sheet.getLogs()
         val postals = sheet.getPostal()
+
 
         val dumpProcess = Runtime.getRuntime().exec("sh dump.sh")
         var counter = 0
@@ -50,10 +50,36 @@ suspend fun populateSheetData(call: ApplicationCall) {
 
         DatabaseFactory.dbQuery {
             val truncateTables =
-                "TRUNCATE categories, items, problem_services, problems, results, services, logs, postal RESTART identity CASCADE;"
+                "TRUNCATE categories, items, problem_services, problems, results, services, logs, postal, skill_level RESTART identity CASCADE;"
 
             truncateTables.queryDB()
         }
+
+        skillLevels.forEach{ itSkill ->
+            SkillLevelRepo.create(
+                SkillLevel(
+                    id = itSkill.skillId.toLong(),
+                    minSkillEN = itSkill.minSkillEN,
+                    minSkillFI = itSkill.minSkillFI,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
+                )
+            )
+        }
+
+
+        contentTypes.forEach{itContent ->
+            ContentTypeRepo.create(
+                ContentType(
+                    id = itContent.typeId.toLong(),
+                    contentTypeEN = itContent.contentTypeEN,
+                    contentTypeFI = itContent.contentTypeFI,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
+                )
+            )
+        }
+
 
         categories.forEach {
             val categoryEn = CategoryRepo.create(
@@ -296,7 +322,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
             LogsRepo.create(
                 Logs(
                     id = itLogs.logsId.toLong(),
-                    logsTime = itLogs.logsTime,
+                    logTimestamp = itLogs.logTimestamp,
                     keywordEn = itLogs.keywordEn,
                     keywordFi = itLogs.keywordFi,
                     destinationUrl = itLogs.destinationUrl,
@@ -307,7 +333,6 @@ suspend fun populateSheetData(call: ApplicationCall) {
                 )
             )
         }
-
 
         postals.forEach {
             PostalRepo.create(
@@ -334,6 +359,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
                 )
             )
         }
+
 
         call.respondSuccess("Migrated successfully", "CATEGORIES")
     } catch (error: Exception) {

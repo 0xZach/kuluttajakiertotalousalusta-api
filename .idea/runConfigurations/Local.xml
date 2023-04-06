@@ -4,15 +4,36 @@
       <env name="APP_ENV" value="local" />
       <env name="PORT" value="5000" />
       <env name="DEVELOPMENT" value="true" />
-      <env name="DB_URL" value="jdbc:postgresql://localhost:5432/skeleton" />
-      <env name="DB_USER" value="postgres" />
+      <env name="DB_HOST" value="localhost" />
+      <env name="DB_NAME" value="turku-amk" />
+      <env name="DB_PORT" value="5432" />
+      <env name="DB_URL" value="jdbc:postgresql://localhost:5432/turku-amk" />
+      <env name="DB_USER" value="usrTurku" />
       <env name="DB_PASSWORD" value="admin" />
-      <env name="JWT_SECRET" value="local_secret" />
+      <env name="JWT_SECRET" value="" />
+      <env name="SERVICE_ACCOUNT" value="" />
+      <env name="CREDENTIALS_FILE_PATH" value="build/resources/main/credentials.json" />
+      <env name="ADMIN_SECRET" value="24380da1acf4420f63ceb7d62bfb073a" />
+      <env name="AWS_BUCKET" value="" />
+      <env name="AWS_S3_REGION" value="" />
+      <env name="AWS_ACCESS_KEY" value="" />
+      <env name="AWS_SECRET_KEY" value="" />
+      <env name="AWS_S3_PREFIX" value="" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.turku.ApplicationKt" />
     <module name="turku-amk-api.main" />
     <option name="PROGRAM_PARAMETERS" value="-t build" />
     <shortenClasspath name="NONE" />
+    <extension name="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+      </ENTRIES>
+    </extension>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

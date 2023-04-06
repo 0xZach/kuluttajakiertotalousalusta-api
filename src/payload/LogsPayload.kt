@@ -2,10 +2,10 @@ package com.turku.payload
 
 data class LogsPayload (
     val logsId: Int,
-    val logsTime: String,
-    val keywordEn: String,
-    val keywordFi: String,
-    val destinationUrl: String,
-    val serviceName: String,
-    val serviceTypeName: String,
+    val logTimestamp: String? = null,
+    val keywordEn: String? = null,
+    val keywordFi: String? = null,
+    val destinationUrl: String? = null,
+    val serviceName: String? = null,
+    val serviceTypeName: String? = null,
 )

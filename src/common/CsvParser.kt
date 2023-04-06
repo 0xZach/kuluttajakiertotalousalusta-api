@@ -79,9 +79,13 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
             skillLevelsSheet = this@SpreadSheetUtil.get(sheet = "Skill-levels", validateSheet = false)
         }
 
-        return skillLevelsSheet?.find {
-            return@find it[0] == id
+        if (!id.isEmpty()) {
+            return skillLevelsSheet?.find {
+                return@find it.isNotEmpty() && it[0] == id
+            }
         }
+        else
+            return null
     }
 
     private fun getContentType(id: String): List<String?>? {
@@ -89,16 +93,20 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
             contentTypesSheet = this@SpreadSheetUtil.get(sheet = "Content-types", validateSheet = false)
         }
 
-        return contentTypesSheet?.find {
-            return@find it[0] == id
+        if (!id.isEmpty()) {
+            return contentTypesSheet?.find {
+                    return@find it.isNotEmpty() && it[0] == id
+            }
         }
+        else
+            return null
     }
 
     fun getResults(): MutableList<ResultPayload> {
         return mutableListOf<ResultPayload>().apply {
             addAll(this@SpreadSheetUtil.get("Results").map {
-                val skillLevel = getSkillLevel(it[6]!!)
                 val contentType = getContentType(it[12]!!)
+                val skillLevel = getSkillLevel(it[6]!!)
 
                 return@map ResultPayload(
                     resultId = it[0]?.toInt()!!,
@@ -109,15 +117,15 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
                     skillLevelId = if (it[6]?.length!! > 0) it[6]?.toInt()!! else null,
                     tutorialUrl = it[4]!!,
                     minCostEuro = it[5],
-                    minSkillEN = skillLevel?.get(1),
-                    minSkillFI = skillLevel?.get(2),
+                    minSkillEN = if(skillLevel.isNullOrEmpty()) "" else skillLevel[1],
+                    minSkillFI = if(skillLevel.isNullOrEmpty()) "" else skillLevel[2],
                     minTime = it[7],
                     tutorialNameEN = it[8],
                     tutorialNameFI = it[9],
                     tutorialIntroEN = it[10],
                     tutorialIntroFI = it[11],
-                    contentTypeEN = contentType?.get(1),
-                    contentTypeFI = contentType?.get(2),
+                    contentTypeEN = if(contentType.isNullOrEmpty()) "" else contentType[1],
+                    contentTypeFI = if(contentType.isNullOrEmpty()) "" else contentType[2],
                     tutorialImage = it[13]
                 )
             }.toTypedArray())
@@ -191,7 +199,7 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
 
         val ctFactory = CoordinateTransformFactory()
         val finnishToGlobalCRS = ctFactory.createTransform(finnishCRS, globalCRS)
-        var coordinates = ProjCoordinate()
+        val coordinates = ProjCoordinate()
 
         return mutableListOf<ServicePayload>().apply {
             addAll(this@SpreadSheetUtil.get("Services")
@@ -230,12 +238,37 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
             addAll(this@SpreadSheetUtil.get("Logs").map {
                 return@map LogsPayload(
                     logsId = it[0]?.toInt()!!,
-                    logsTime = it[1]!!,
+                    logTimestamp = it[1]!!,
                     keywordEn = it[2]!!,
                     keywordFi = it[3]!!,
                     destinationUrl = it[4]!!,
                     serviceName = it[5]!!,
                     serviceTypeName = it[6]!!,
+                )
+            }.toTypedArray())
+        }
+    }
+
+
+    fun getSkillLevels() : MutableList<SkillLevelPayload> {
+        return mutableListOf<SkillLevelPayload>().apply {
+            addAll(this@SpreadSheetUtil.get("Skill-levels").map {
+                return@map SkillLevelPayload(
+                    skillId = it[0]?.toInt()!!,
+                    minSkillEN = it[1]!!,
+                    minSkillFI = it[2]!!,
+                )
+            }.toTypedArray())
+        }
+    }
+
+    fun getContentTypes() : MutableList<ContentTypePayload> {
+        return mutableListOf<ContentTypePayload>().apply {
+            addAll(this@SpreadSheetUtil.get("Content-types").map {
+                return@map ContentTypePayload(
+                    typeId = it[0]?.toInt()!!,
+                    contentTypeEN = it[1]!!,
+                    contentTypeFI = it[2]!!,
                 )
             }.toTypedArray())
         }
@@ -270,14 +303,14 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
 
 
     fun getPostal(): MutableList<PostalPayload> {
-        var muniPay = getMunicipalities()
-        var streetPay = getStreets()
+        val muniPay = getMunicipalities()
+        val streetPay = getStreets()
 
         var postPay = mutableListOf<PostalPayload>()
 
         for (municipality in muniPay) {
             for (street in streetPay){
-                if (municipality.postalCode.toInt() == street.postalCode.toInt()){
+                if (municipality.postalCode!!.toInt() == street.postalCode!!.toInt()){
                     postPay.add(
                         PostalPayload(
                             postalId = postPay.size+1,

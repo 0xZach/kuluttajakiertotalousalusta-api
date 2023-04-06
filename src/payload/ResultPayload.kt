@@ -27,3 +27,29 @@ data class ResultPayload(
 
     val tutorialImage: String? = null
 )
+
+data class LocalizedResultPayload(
+    val resultId: Int,
+    val problemId: Int,
+    val categoryId: Int,
+    val itemId: Int,
+    val contentTypeId: Int? = null,
+    val skillLevelId: Int? = null,
+
+    val tutorialUrl: String? = null,
+    val minCostEuro: String? = null,
+
+    val minSkill: String? = null,
+
+    val minTime: String? = null,
+
+    val tutorialName: String? = null,
+
+    val tutorialIntro: String? = null,
+
+    val contentType: String? = null,
+
+    val tutorialImage: String? = null,
+
+    val lang: String? = null
+)

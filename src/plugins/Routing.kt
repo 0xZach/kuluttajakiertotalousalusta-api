@@ -17,6 +17,8 @@ fun Application.configureRouting() {
     ResultRoute()
     LogsRoute()
     PostalRoute()
+    SkillLevelRoute()
+    ContentTypeRoute()
     PopulateDataRoute()
     routing {
         get("/health-check") {
