@@ -50,7 +50,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
 
         DatabaseFactory.dbQuery {
             val truncateTables =
-                "TRUNCATE categories, items, problem_services, problems, results, services, logs, postal, skill_level RESTART identity CASCADE;"
+                "TRUNCATE categories, items, problem_services, problems, results, services, logs, postal, skill_level, content_type RESTART identity CASCADE;"
 
             truncateTables.queryDB()
         }
