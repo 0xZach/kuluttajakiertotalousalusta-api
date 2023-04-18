@@ -187,9 +187,13 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
             serviceTypesSheet = this@SpreadSheetUtil.get(sheet = "Service-types", validateSheet = false)
         }
 
-        return serviceTypesSheet?.find {
-            return@find it[0]?.trim()?.lowercase() == id.trim().lowercase()
+        if (!id.isEmpty()) {
+            return serviceTypesSheet?.find {
+                return@find it.isNotEmpty() && it[0] == id
+            }
         }
+        else
+            return null
     }
 
     fun getServices(): MutableList<ServicePayload> {
