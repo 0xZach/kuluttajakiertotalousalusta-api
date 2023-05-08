@@ -20,11 +20,8 @@ class LogsRepository {
     suspend fun create(Logs: Logs): Logs = dbQuery {
         LogsModel.new {
             logTimestamp = Logs.logTimestamp!!
-            keywordEn = Logs.keywordEn!!
-            keywordFi = Logs.keywordFi!!
-            destinationUrl = Logs.destinationUrl!!
-            serviceName = Logs.serviceName!!
-            serviceTypeName = Logs.serviceTypeName!!
+            serviceOrTutorial = Logs.serviceOrTutorial!!
+            resultId = Logs.resultId!!
             createdAt = System.currentTimeMillis()
             updatedAt = System.currentTimeMillis()
         }.toLogs()
@@ -36,11 +33,8 @@ class LogsRepository {
         requireNotNull(data) { "No data found for id ${Logs.id}" }
 
         data.logTimestamp = Logs.logTimestamp
-        data.keywordEn = Logs.keywordEn
-        data.keywordFi = Logs.keywordFi
-        data.destinationUrl = Logs.destinationUrl
-        data.serviceName = Logs.serviceName
-        data.serviceTypeName = Logs.serviceTypeName
+        data.serviceOrTutorial = Logs.serviceOrTutorial
+        data.resultId = Logs.resultId!!
         data.updatedAt = System.currentTimeMillis()
 
         return@dbQuery data.toLogs()

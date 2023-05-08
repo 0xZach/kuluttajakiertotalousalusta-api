@@ -1,8 +1,6 @@
 package com.turku.repositories
 
 import com.turku.DatabaseFactory.dbQuery
-import com.turku.common.queryDB
-import com.turku.common.queryDBAndMap
 import com.turku.models.*
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.max

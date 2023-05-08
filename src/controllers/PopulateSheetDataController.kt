@@ -323,11 +323,8 @@ suspend fun populateSheetData(call: ApplicationCall) {
                 Logs(
                     id = itLogs.logsId.toLong(),
                     logTimestamp = itLogs.logTimestamp,
-                    keywordEn = itLogs.keywordEn,
-                    keywordFi = itLogs.keywordFi,
-                    destinationUrl = itLogs.destinationUrl,
-                    serviceName = itLogs.serviceName,
-                    serviceTypeName = itLogs.serviceTypeName,
+                    serviceOrTutorial = itLogs.serviceOrTutorial,
+                    resultId = itLogs.resultId!!.toLong(),
                     createdAt = System.currentTimeMillis(),
                     updatedAt = System.currentTimeMillis()
                 )

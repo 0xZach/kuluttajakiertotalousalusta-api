@@ -226,10 +226,10 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
                         longitude = coordinates.x,
                         latitude = coordinates.y,
                         address = it[10]!!,
-                        phone = it[11]!!,
-                        email = it[12]!!,
-                        otherDetailsEN = it[13]!!,
-                        otherDetailsFI = it[14]!!
+                        phone = it[12]!!,
+                        email = it[13]!!,
+                        otherDetailsEN = it[14]!!,
+                        otherDetailsFI = it[15]!!
                     )
                 }.toTypedArray()
             )
@@ -243,11 +243,8 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
                 return@map LogsPayload(
                     logsId = it[0]?.toInt()!!,
                     logTimestamp = it[1]!!,
-                    keywordEn = it[2]!!,
-                    keywordFi = it[3]!!,
-                    destinationUrl = it[4]!!,
-                    serviceName = it[5]!!,
-                    serviceTypeName = it[6]!!,
+                    serviceOrTutorial = it[2]!!,
+                    resultId = it[3]!!.toInt(),
                 )
             }.toTypedArray())
         }

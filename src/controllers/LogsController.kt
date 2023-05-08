@@ -28,11 +28,8 @@ suspend fun setLogs(call: ApplicationCall){
             Logs(
                 id = LogsRepo.getCount() + 1,
                 logTimestamp = body.logTimestamp,
-                keywordEn = body.keywordEn,
-                keywordFi = body.keywordFi,
-                destinationUrl = body.destinationUrl,
-                serviceName = body.serviceName,
-                serviceTypeName = body.serviceTypeName,
+                serviceOrTutorial = body.serviceOrTutorial,
+                resultId = body.resultId!!.toLong(),
                 createdAt = System.currentTimeMillis(),
                 updatedAt = System.currentTimeMillis()
             )
