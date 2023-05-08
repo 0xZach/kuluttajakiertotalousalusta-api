@@ -105,27 +105,19 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
     fun getResults(): MutableList<ResultPayload> {
         return mutableListOf<ResultPayload>().apply {
             addAll(this@SpreadSheetUtil.get("Results").map {
-                val contentType = getContentType(it[12]!!)
-                val skillLevel = getSkillLevel(it[6]!!)
 
                 return@map ResultPayload(
                     resultId = it[0]?.toInt()!!,
                     problemId = it[1]?.toInt()!!,
-                    categoryId = it[2]?.toInt()!!,
-                    itemId = it[3]?.toInt()!!,
                     contentTypeId = if (it[12]?.length!! > 0) it[12]?.toInt()!! else null,
                     skillLevelId = if (it[6]?.length!! > 0) it[6]?.toInt()!! else null,
                     tutorialUrl = it[4]!!,
                     minCostEuro = it[5],
-                    minSkillEN = if(skillLevel.isNullOrEmpty()) "" else skillLevel[1],
-                    minSkillFI = if(skillLevel.isNullOrEmpty()) "" else skillLevel[2],
                     minTime = it[7],
                     tutorialNameEN = it[8],
                     tutorialNameFI = it[9],
                     tutorialIntroEN = it[10],
                     tutorialIntroFI = it[11],
-                    contentTypeEN = if(contentType.isNullOrEmpty()) "" else contentType[1],
-                    contentTypeFI = if(contentType.isNullOrEmpty()) "" else contentType[2],
                     tutorialImage = it[13]
                 )
             }.toTypedArray())

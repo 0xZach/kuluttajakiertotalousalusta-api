@@ -42,7 +42,7 @@ suspend fun getProblemResults(call: ApplicationCall) {
                 "results" to results,
                 "itemId" to item?.id,
                 "itemName" to item?.name,
-                "categoryId" to problem.appCategoryId,
+                "categoryId" to item?.appCategoryId,
                 "problemName" to problem.problem,
                 "services" to services,
                 "municipalities" to municipalities
@@ -61,10 +61,8 @@ suspend fun insertResult(call: ApplicationCall){
         ResultRepo.create(
             Result(
                 id = ResultRepo.getCount() + 1,
-                appResultId = ResultRepo.newAppResultId(),
+                //appResultId = ResultRepo.newAppResultId(),
                 problemId = body.problemId.toLong(),
-                itemId = body.itemId.toLong(),
-                categoryId = body.categoryId.toLong(),
                 appContentTypeId = body.contentTypeId?.toLong(),
                 appSkillLevelId = body.skillLevelId?.toLong(),
                 lang = body.lang,

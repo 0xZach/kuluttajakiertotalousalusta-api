@@ -23,33 +23,25 @@ class ResultRepository {
         ResultModel.count()
     }
 
-    suspend fun newAppResultId(): Long = dbQuery {
+    /*suspend fun newAppResultId(): Long = dbQuery {
         ResultTable
             .slice(ResultTable.appResultId.max())
             .selectAll()
             .maxByOrNull { ResultTable.appResultId }
             ?.get(ResultTable.appResultId.max())!!.plus(2)
-    }
+    }*/
     suspend fun create(result: Result): Result = dbQuery {
         ResultModel.new {
-            appResultId = result.appResultId
             appContentTypeId = result.appContentTypeId
             appSkillLevelId = result.appSkillLevelId
-            appProblemId = result.appProblemId
-            appItemId = result.appItemId
-            appCategoryId = result.appCategoryId
             lang = result.lang
             tutorialName = result.tutorialName
             tutorialIntro = result.tutorialIntro
             tutorialUrl = result.tutorialUrl
-            contentType = result.contentType
             minCost = result.minCost
-            minSkill = result.minSkill
             minTime = result.minTime
             tutorialImage = result.tutorialImage
             problemId = result.problemId
-            itemId = result.itemId
-            categoryId = result.categoryId
             createdAt = System.currentTimeMillis()
             updatedAt = System.currentTimeMillis()
         }.toResult()
@@ -61,24 +53,16 @@ class ResultRepository {
 
         requireNotNull(data) { "No data found for id ${result.id}" }
 
-        data.appResultId = result.appResultId
         data.appContentTypeId = result.appContentTypeId
         data.appSkillLevelId = result.appSkillLevelId
-        data.appProblemId = result.appProblemId
-        data.appItemId = result.appItemId
-        data.appCategoryId = result.appCategoryId
         data.lang = result.lang
         data.tutorialName = result.tutorialName
         data.tutorialUrl = result.tutorialUrl
-        data.contentType = result.contentType
         data.tutorialIntro = result.tutorialIntro
         data.minCost = result.minCost
-        data.minSkill = result.minSkill
         data.minTime = result.minTime
         data.tutorialImage = result.tutorialImage
         data.problemId = result.problemId
-        data.itemId = result.itemId
-        data.categoryId = result.categoryId
         data.updatedAt = System.currentTimeMillis()
 
         return@dbQuery data.toResult()

@@ -15,6 +15,8 @@ alter table results
 	drop column app_item_id,
 	drop column app_category_id,
 	drop column app_problem_id,
+	drop column item_id,
+	drop column min_skill,
 	drop column category_id,
 	drop column content_type,
 	drop column app_result_id;

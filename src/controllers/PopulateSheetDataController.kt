@@ -152,24 +152,17 @@ suspend fun populateSheetData(call: ApplicationCall) {
                     resultsEn.forEach { itResultEn ->
                         ResultRepo.create(
                             Result(
-                                appResultId = itResultEn.resultId.toLong(),
+                                id = itResultEn.resultId.toLong(),
                                 lang = "en-GB",
-                                appProblemId = problemEn.appProblemId,
-                                appCategoryId = categoryEn.appCategoryId,
-                                appItemId = itemEn.appItemId,
                                 appContentTypeId = itResultEn.contentTypeId?.toLong(),
                                 appSkillLevelId = itResultEn.skillLevelId?.toLong(),
                                 minCost = itResultEn.minCostEuro,
-                                minSkill = itResultEn.minSkillEN,
                                 tutorialIntro = itResultEn.tutorialIntroEN,
                                 tutorialUrl = itResultEn.tutorialUrl,
                                 tutorialName = itResultEn.tutorialNameEN,
                                 minTime = itResultEn.minTime,
                                 tutorialImage = itResultEn.tutorialImage,
-                                contentType = itResultEn.contentTypeEN,
                                 problemId = problemEn.id,
-                                itemId = itemEn.id,
-                                categoryId = categoryEn.id,
                                 updatedAt = System.currentTimeMillis(),
                                 createdAt = System.currentTimeMillis()
                             )
@@ -218,24 +211,17 @@ suspend fun populateSheetData(call: ApplicationCall) {
                     resultsFi.forEach { itResultFi ->
                         ResultRepo.create(
                             Result(
-                                appResultId = itResultFi.resultId.toLong(),
+                                id = itResultFi.resultId.toLong(),
                                 lang = "fi-FI",
-                                appProblemId = problemFi.appProblemId,
-                                appCategoryId = categoryFi.appCategoryId,
-                                appItemId = itemFi.appItemId,
                                 appContentTypeId = itResultFi.contentTypeId?.toLong(),
                                 appSkillLevelId = itResultFi.skillLevelId?.toLong(),
                                 minCost = itResultFi.minCostEuro,
-                                minSkill = itResultFi.minSkillFI,
                                 tutorialIntro = itResultFi.tutorialIntroFI,
                                 tutorialUrl = itResultFi.tutorialUrl,
                                 tutorialName = itResultFi.tutorialNameFI,
                                 minTime = itResultFi.minTime,
                                 tutorialImage = itResultFi.tutorialImage,
-                                contentType = itResultFi.contentTypeFI,
                                 problemId = problemFi.id,
-                                itemId = itemFi.id,
-                                categoryId = categoryFi.id,
                                 updatedAt = System.currentTimeMillis(),
                                 createdAt = System.currentTimeMillis()
                             )
