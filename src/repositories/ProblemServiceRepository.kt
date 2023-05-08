@@ -16,12 +16,8 @@ class ProblemServiceRepository {
 
     suspend fun create(result: ProblemService): ProblemService = dbQuery {
         ProblemServiceModel.new {
-            appProblemId = result.appProblemId!!
-            appItemId = result.appItemId!!
-            appCategoryId = result.appCategoryId!!
             problemId = result.problemId!!
             serviceId = result.serviceId!!
-            itemId = result.itemId!!
             createdAt = System.currentTimeMillis()
             updatedAt = System.currentTimeMillis()
         }.toProblemService()
@@ -31,12 +27,8 @@ class ProblemServiceRepository {
         if (result.id == null) return@dbQuery null
         val data = ProblemServiceModel.findById(result.id)
         requireNotNull(data) { "No data found for id ${result.id}" }
-        data.appProblemId = result.appProblemId!!
-        data.appItemId = result.appItemId!!
         data.problemId = result.problemId!!
-        data.appCategoryId = result.appCategoryId!!
         data.serviceId = result.serviceId!!
-        data.itemId = result.itemId!!
         data.updatedAt = System.currentTimeMillis()
 
         return@dbQuery data.toProblemService()

@@ -246,7 +246,9 @@ suspend fun populateSheetData(call: ApplicationCall) {
                     address = itService.address,
                     phone = itService.phone,
                     email = itService.email,
-                    details = itService.otherDetailsEN
+                    details = itService.otherDetailsEN,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
                 )
             )
 
@@ -264,36 +266,24 @@ suspend fun populateSheetData(call: ApplicationCall) {
                     address = itService.address,
                     phone = itService.phone,
                     email = itService.email,
-                    details = itService.otherDetailsFI
+                    details = itService.otherDetailsFI,
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
                 )
             )
 
             val savedProblems = ProblemRepo.getByAppProblemId(itService.problemIds)
 
             savedProblems.forEach { itProblem ->
-                if (itProblem.lang == "en-GB") {
-                    ProblemServiceRepo.create(
-                        ProblemService(
-                            itemId = itProblem.itemId,
-                            problemId = itProblem.id,
-                            serviceId = serviceEn.id,
-                            appProblemId = itProblem.appProblemId,
-                            appItemId = itProblem.appItemId,
-                        )
-                    )
-                }
 
-                if (itProblem.lang == "fi-FI") {
-                    ProblemServiceRepo.create(
-                        ProblemService(
-                            itemId = itProblem.itemId,
-                            problemId = itProblem.id,
-                            serviceId = serviceFi.id,
-                            appProblemId = itProblem.appProblemId,
-                            appItemId = itProblem.appItemId,
-                        )
+                ProblemServiceRepo.create(
+                    ProblemService(
+                        problemId = itProblem.id,
+                        serviceId = serviceEn.id,
+                        createdAt = System.currentTimeMillis(),
+                        updatedAt = System.currentTimeMillis()
                     )
-                }
+                )
             }
         }
 

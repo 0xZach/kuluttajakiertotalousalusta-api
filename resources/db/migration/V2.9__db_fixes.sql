@@ -29,7 +29,7 @@ alter table services
 
 drop table problem_services;
 create table problem_services (
-	app_problem_id int,
+	problem_id int,
 	service_id int,
 	created_at int,
 	updated_at int,
