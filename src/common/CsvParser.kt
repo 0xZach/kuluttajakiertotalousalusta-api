@@ -209,8 +209,6 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
                         appBusinessId = it[2]!!,
                         problemIds = getProblemIds(it[3]!!),
                         appServiceTypeId = it[4]!!,
-                        serviceTypeNameEn = getServiceType(it[4]!!)?.get(1)!!,
-                        serviceTypeNameFi = getServiceType(it[4]!!)?.get(2)!!,
                         nameEN = it[5]!!,
                         nameFI = it[6]!!,
                         url = it[7]!!,

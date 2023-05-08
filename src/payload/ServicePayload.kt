@@ -5,8 +5,6 @@ data class ServicePayload(
     val appHriId: String,
     val appBusinessId: String,
     val appServiceTypeId: String,
-    val serviceTypeNameEn: String,
-    val serviceTypeNameFi: String,
     val problemIds: List<Long>,
     val nameEN: String,
     val nameFI: String,

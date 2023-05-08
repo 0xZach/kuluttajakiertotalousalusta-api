@@ -27,11 +27,9 @@ class ServiceRepository {
         return@dbQuery query.queryDBAndMap {
             result -> Service(
                 id = result.getString("id").toLong(),
-                appServiceId = result.getString("app_service_id").toLong(),
                 appHriId = result.getString("app_hri_id"),
                 appBusinessId = result.getString("app_business_id"),
                 appServiceTypeId = result.getString("app_service_type_id"),
-                serviceTypeName = result.getString("service_type_name"),
                 lang = result.getString("lang"),
                 name = result.getString("name"),
                 latitude = result.getString("latitude").toDouble(),
@@ -49,11 +47,9 @@ class ServiceRepository {
 
     suspend fun create(result: Service): Service = dbQuery {
         ServiceModel.new {
-            appServiceId = result.appServiceId
             appHriId = result.appHriId
             appBusinessId = result.appBusinessId
             appServiceTypeId = result.appServiceTypeId
-            serviceTypeName = result.serviceTypeName
             lang = result.lang
             name = result.name
             latitude = result.latitude
@@ -72,11 +68,9 @@ class ServiceRepository {
         if (result.id == null) return@dbQuery null
         val data = ServiceModel.findById(result.id)
         requireNotNull(data) { "No data found for id ${result.id}" }
-        data.appServiceId = result.appServiceId
         data.appHriId = result.appHriId
         data.appBusinessId = result.appBusinessId
         data.appServiceTypeId = result.appServiceTypeId
-        data.serviceTypeName = result.serviceTypeName
         data.lang = result.lang
         data.name = result.name
         data.latitude = result.latitude
