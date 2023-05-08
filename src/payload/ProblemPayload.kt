@@ -1,7 +1,6 @@
 package com.turku.payload
 
 data class ProblemPayload(
-    val categoryId: Int,
     val itemId: Int,
     val problemId: Int,
     val objectProblemEN: String? = null,

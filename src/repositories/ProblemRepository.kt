@@ -29,7 +29,6 @@ class ProblemRepository {
         ProblemModel.new {
             appItemId = newProblem.appItemId
             appProblemId = newProblem.appProblemId
-            appCategoryId = newProblem.appCategoryId
             problem = newProblem.problem
             searchTerms = newProblem.searchTerms
             lang = newProblem.lang
@@ -47,7 +46,6 @@ class ProblemRepository {
 
         data.appProblemId = problem.appProblemId
         data.appItemId = problem.appItemId
-        data.appCategoryId = problem.appCategoryId
         data.problem = problem.problem
         data.searchTerms = problem.searchTerms
         data.lang = problem.lang

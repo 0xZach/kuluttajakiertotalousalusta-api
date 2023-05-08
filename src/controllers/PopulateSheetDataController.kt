@@ -136,7 +136,6 @@ suspend fun populateSheetData(call: ApplicationCall) {
                             lang = "en-GB",
                             appProblemId = itProblemEn.problemId.toLong(),
                             appItemId = itemEn.appItemId,
-                            appCategoryId = categoryEn.appCategoryId,
                             itemId = itemEn.id,
                             problem = itProblemEn.objectProblemEN,
                             searchTerms = itProblemEn.searchTermsEN,
@@ -203,7 +202,6 @@ suspend fun populateSheetData(call: ApplicationCall) {
                             lang = "fi-FI",
                             appProblemId = itProblemFi.problemId.toLong(),
                             appItemId = itemFi.appItemId,
-                            appCategoryId = categoryEn.appCategoryId,
                             itemId = itemFi.id,
                             problem = itProblemFi.objectProblemFI,
                             searchTerms = itProblemFi.searchTermsFI,
@@ -296,7 +294,6 @@ suspend fun populateSheetData(call: ApplicationCall) {
                             problemId = itProblem.id,
                             serviceId = serviceEn.id,
                             appProblemId = itProblem.appProblemId,
-                            appCategoryId = itProblem.appCategoryId,
                             appItemId = itProblem.appItemId,
                         )
                     )
@@ -309,7 +306,6 @@ suspend fun populateSheetData(call: ApplicationCall) {
                             problemId = itProblem.id,
                             serviceId = serviceFi.id,
                             appProblemId = itProblem.appProblemId,
-                            appCategoryId = itProblem.appCategoryId,
                             appItemId = itProblem.appItemId,
                         )
                     )

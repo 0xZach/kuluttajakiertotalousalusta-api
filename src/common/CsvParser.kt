@@ -163,7 +163,6 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         return mutableListOf<ProblemPayload>().apply {
             addAll(this@SpreadSheetUtil.get("Object-problem").map {
                 return@map ProblemPayload(
-                    categoryId = it[0]?.toInt()!!,
                     itemId = it[1]?.toInt()!!,
                     problemId = it[2]?.toInt()!!,
                     objectProblemEN = it[3]!!,

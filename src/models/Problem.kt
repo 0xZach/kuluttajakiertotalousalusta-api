@@ -8,7 +8,6 @@ import org.jetbrains.exposed.dao.id.LongIdTable
 object ProblemTable : LongIdTable("problems", "id") {
     val appProblemId = long("app_problem_id").nullable()
     val appItemId = long("app_item_id").nullable()
-    val appCategoryId = long("app_category_id").nullable()
     val lang = varchar("lang", 255).nullable()
     val problem = varchar("problem", 255).nullable()
     val searchTerms = varchar("search_terms", 255).nullable()
@@ -23,7 +22,6 @@ class ProblemModel(id: EntityID<Long>) : LongEntity(id) {
 
     var appProblemId by ProblemTable.appProblemId
     var appItemId by ProblemTable.appItemId
-    var appCategoryId by ProblemTable.appCategoryId
     var lang by ProblemTable.lang
     var problem by ProblemTable.problem
     var searchTerms by ProblemTable.searchTerms
@@ -36,7 +34,6 @@ class ProblemModel(id: EntityID<Long>) : LongEntity(id) {
         id = id.value,
         appProblemId = appProblemId,
         appItemId = appItemId,
-        appCategoryId = appCategoryId,
         lang = lang,
         problem = problem,
         searchTerms = searchTerms,
@@ -51,7 +48,6 @@ data class Problem(
     val id: Long? = null,
     val appProblemId: Long? = null,
     val appItemId: Long? = null,
-    val appCategoryId: Long? = null,
     val lang: String? = null,
     val problem: String? = null,
     val searchTerms: String? = null,
