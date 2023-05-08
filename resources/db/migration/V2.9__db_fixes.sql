@@ -23,8 +23,7 @@ alter table results
 
 alter table services
 	drop column service_type_name,
-	drop column app_service_id
-	rename column app_service_type_id to service_type_id;
+	drop column app_service_id;
 
 
 drop table problem_services;
@@ -33,8 +32,8 @@ create table problem_services (
 	service_id int,
 	created_at int,
 	updated_at int,
-	primary key (app_problem_id, service_id),
-	foreign key (app_problem_id) references problems(app_problem_id),
+	primary key (problem_id, service_id),
+	foreign key (problem_id) references problems(id),
 	foreign key (service_id) references services(id)
 );
 
