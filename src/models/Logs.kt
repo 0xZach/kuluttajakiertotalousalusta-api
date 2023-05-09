@@ -8,7 +8,7 @@ import org.jetbrains.exposed.dao.id.LongIdTable
 object LogsTable : LongIdTable("logs", "id") {
     val logTimestamp = varchar("log_timestamp", 255).nullable()
     val serviceOrTutorial = varchar("service_or_tuto", 255).nullable()
-    val resultId = long("result_id")
+    val resultId = long("result_id").nullable()
     val createdAt = long("created_at")
     val updatedAt = long("updated_at")
 }

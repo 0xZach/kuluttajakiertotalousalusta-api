@@ -1,11 +1,11 @@
 drop table Logs;
 create table Logs(
 	id bigserial primary key,
-	log_timestamp date,
+	log_timestamp text,
 	service_or_tuto text,
 	result_id int,
-	created_at int,
-	updated_at int
+	created_at bigint,
+	updated_at bigint
 );
 
 alter table problems
@@ -28,11 +28,11 @@ alter table services
 
 drop table problem_services;
 create table problem_services (
+    id bigserial primary key,
 	problem_id int,
 	service_id int,
-	created_at int,
-	updated_at int,
-	primary key (problem_id, service_id),
+	created_at bigint,
+	updated_at bigint,
 	foreign key (problem_id) references problems(id),
 	foreign key (service_id) references services(id)
 );
@@ -41,6 +41,6 @@ create table service_types (
 	id bigserial primary key,
 	type_name text,
 	lang text,
-	created_at int,
-	updated_at int
+	created_at bigint,
+	updated_at bigint
 );

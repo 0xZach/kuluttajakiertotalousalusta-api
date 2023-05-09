@@ -324,7 +324,7 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
     private fun dataTypeChecker(data: String, index: Int): Any? {
         return try {
             return when (columnType[index]) {
-                "Int" -> data.toInt()
+                "Int" -> if (data != "") data.toInt() else 0
                 "Float" -> if (data != "") data.toFloat() else -1.0
                 "String" -> data
                 else -> null
