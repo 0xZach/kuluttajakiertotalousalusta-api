@@ -20,9 +20,11 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         private val CREDENTIALS_FILE_PATH = Utils.getEnv("ktor.gcp.credentialsFilePath")
         private val serviceAccount = Utils.getEnv("ktor.gcp.serviceAccount")
 
+        /*
         private var skillLevelsSheet: List<List<String?>>? = null
         private var contentTypesSheet: List<List<String?>>? = null
         private var serviceTypesSheet: List<List<String?>>? = null
+        */
     }
 
     private lateinit var columnName: List<String>
@@ -74,6 +76,7 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         }
     }
 
+    /*
     private fun getSkillLevel(id: String): List<String?>? {
         if (skillLevelsSheet == null) {
             skillLevelsSheet = this@SpreadSheetUtil.get(sheet = "Skill-levels", validateSheet = false)
@@ -101,6 +104,21 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         else
             return null
     }
+
+    private fun getServiceType(id: String): List<String?>? {
+        if (serviceTypesSheet == null) {
+            serviceTypesSheet = this@SpreadSheetUtil.get(sheet = "Service-types", validateSheet = false)
+        }
+
+        if (!id.isEmpty()) {
+            return serviceTypesSheet?.find {
+                return@find it.isNotEmpty() && it[0] == id
+            }
+        }
+        else
+            return null
+    }
+    */
 
     fun getResults(): MutableList<ResultPayload> {
         return mutableListOf<ResultPayload>().apply {
@@ -171,20 +189,6 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         return problemIdsString.split(',').map {
             it.trim().toLong()
         }.distinct()
-    }
-
-    private fun getServiceType(id: String): List<String?>? {
-        if (serviceTypesSheet == null) {
-            serviceTypesSheet = this@SpreadSheetUtil.get(sheet = "Service-types", validateSheet = false)
-        }
-
-        if (!id.isEmpty()) {
-            return serviceTypesSheet?.find {
-                return@find it.isNotEmpty() && it[0] == id
-            }
-        }
-        else
-            return null
     }
 
     fun getServices(): MutableList<ServicePayload> {

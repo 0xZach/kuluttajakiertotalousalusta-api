@@ -232,6 +232,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
         }
 
         services.forEach { itService ->
+
             val serviceEn = ServiceRepo.create(
                 Service(
                     id = itService.appServiceId,
@@ -252,7 +253,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
                 )
             )
 
-            val serviceFi = ServiceRepo.create(
+            ServiceRepo.create(
                 Service(
                     id = itService.appServiceId,
                     appHriId = itService.appHriId,
