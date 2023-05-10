@@ -15,8 +15,8 @@ class SkillLevelRepository {
 
     suspend fun create(skillLevel: SkillLevel): SkillLevel = DatabaseFactory.dbQuery {
         SkillLevelModel.new {
-            minSkillEN = skillLevel.minSkillEN
-            minSkillFI = skillLevel.minSkillFI
+            label = skillLevel.label
+            lang = skillLevel.lang
             createdAt = System.currentTimeMillis()
             updatedAt = System.currentTimeMillis()
         }.toSkill()
@@ -27,8 +27,8 @@ class SkillLevelRepository {
         val data = SkillLevelModel.findById(skillLevel.id)
         requireNotNull(data) { "No data found for id ${skillLevel.id}" }
 
-        data.minSkillEN = skillLevel.minSkillEN
-        data.minSkillFI = skillLevel.minSkillFI
+        data.label = skillLevel.label
+        data.lang = skillLevel.lang
         data.updatedAt = System.currentTimeMillis()
 
         return@dbQuery data.toSkill()

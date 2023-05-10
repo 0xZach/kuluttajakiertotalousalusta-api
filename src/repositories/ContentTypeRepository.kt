@@ -15,8 +15,8 @@ class ContentTypeRepository {
 
     suspend fun create(contentType: ContentType): ContentType = DatabaseFactory.dbQuery {
         ContentTypeModel.new {
-            contentTypeEN = contentType.contentTypeEN
-            contentTypeFI = contentType.contentTypeFI
+            label = contentType.label
+            lang = contentType.lang
             createdAt = System.currentTimeMillis()
             updatedAt = System.currentTimeMillis()
         }.toContentType()
@@ -27,8 +27,8 @@ class ContentTypeRepository {
         val data = ContentTypeModel.findById(contentType.id)
         requireNotNull(data) { "No data found for id ${contentType.id}" }
 
-        data.contentTypeEN = contentType.contentTypeEN
-        data.contentTypeFI = contentType.contentTypeFI
+        data.label = contentType.label
+        data.lang = contentType.lang
         data.updatedAt = System.currentTimeMillis()
 
         return@dbQuery data.toContentType()

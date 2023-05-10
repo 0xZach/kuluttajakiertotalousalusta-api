@@ -6,8 +6,8 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 
 object SkillLevelTable : LongIdTable("skill_level", "id") {
-    val minSkillEN = varchar("min_skill_en", 255).nullable()
-    val minSkillFI = varchar("min_skill_fi", 255).nullable()
+    val label = varchar("label", 255).nullable()
+    val lang = varchar("lang", 255).nullable()
     val createdAt = long("created_at")
     val updatedAt = long("updated_at")
 }
@@ -15,15 +15,15 @@ object SkillLevelTable : LongIdTable("skill_level", "id") {
 class SkillLevelModel(id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<SkillLevelModel>(SkillLevelTable)
 
-    var minSkillEN by SkillLevelTable.minSkillEN
-    var minSkillFI by SkillLevelTable.minSkillFI
+    var label by SkillLevelTable.label
+    var lang by SkillLevelTable.lang
     var updatedAt by SkillLevelTable.updatedAt
     var createdAt by SkillLevelTable.createdAt
 
     fun toSkill() = SkillLevel(
         id = id.value,
-        minSkillEN = minSkillEN,
-        minSkillFI = minSkillFI,
+        label = label,
+        lang = lang,
         createdAt = createdAt,
         updatedAt = updatedAt
     )
@@ -31,8 +31,8 @@ class SkillLevelModel(id: EntityID<Long>) : LongEntity(id) {
 
 data class SkillLevel(
     val id: Long? = null,
-    val minSkillEN: String? = null,
-    val minSkillFI: String? = null,
+    val label: String? = null,
+    val lang: String? = null,
     val createdAt: Long,
     val updatedAt: Long,
 )
