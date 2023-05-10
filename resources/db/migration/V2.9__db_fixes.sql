@@ -45,10 +45,16 @@ create table service_types (
 	updated_at bigint
 );
 
+
 alter table skill_level
-    rename column min_skill_en to label,
+    rename column min_skill_en to label;
+
+alter table skill_level
     rename column min_skill_fi to lang;
 
+
 alter table content_type
-    rename column content_type_en to label,
+    rename column content_type_en to label;
+
+alter table content_type
     rename column content_type_fi to lang;
