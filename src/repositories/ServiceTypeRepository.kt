@@ -17,8 +17,8 @@ class ServiceTypeRepository {
     }
 
     suspend fun create(serviceType: ServiceType): ServiceType = DatabaseFactory.dbQuery {
-        ServiceTypeModel.new() {
-            appId = serviceType.id!!
+        ServiceTypeModel.new {
+            appId = serviceType.appId!!
             typeName = serviceType.typeName
             lang = serviceType.lang
             createdAt = System.currentTimeMillis()

@@ -17,8 +17,7 @@ create table Logs(
 -- dropped duplicated columns and app_id columns to prepare for the language amelioration which will actually let us use the ids used in the google sheets --
 
 alter table problems
-	drop column app_category_id,
-	drop column app_item_id;
+	drop column app_category_id;
 
 alter table results
 	drop column app_item_id,
