@@ -23,7 +23,8 @@ alter table results
 
 alter table services
 	drop column service_type_name,
-	drop column app_service_id;
+	drop column app_service_id,
+	alter column app_service_type_id bigint;
 
 
 drop table problem_services;

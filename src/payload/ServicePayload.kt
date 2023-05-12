@@ -4,7 +4,7 @@ data class ServicePayload(
     val appServiceId: Long,
     val appHriId: String,
     val appBusinessId: String,
-    val appServiceTypeId: String,
+    val appServiceTypeId: Long,
     val problemIds: List<Long>,
     val nameEN: String,
     val nameFI: String,

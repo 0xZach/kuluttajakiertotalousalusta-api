@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.Table.Dual.nullable
 object ServiceTable : LongIdTable("services", "id") {
     val appHriId = varchar("app_hri_id", 100)
     val appBusinessId = varchar("app_business_id", 100)
-    val appServiceTypeId = varchar("app_service_type_id", 100)
+    val appServiceTypeId = long("app_service_type_id")
     val lang = varchar("lang", 10)
     val name = varchar("name", 255)
     val latitude = double("latitude")
@@ -64,7 +64,7 @@ data class Service(
     val id: Long? = null,
     val appHriId: String,
     val appBusinessId: String,
-    val appServiceTypeId: String,
+    val appServiceTypeId: Long,
     val lang: String,
     val name: String,
     val latitude: Double,

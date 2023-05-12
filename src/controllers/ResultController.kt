@@ -3,10 +3,7 @@ package com.turku.controllers
 import com.turku.common.ApplicationLogger
 import com.turku.common.respondSomethingWentWrong
 import com.turku.common.respondSuccess
-import com.turku.models.ContentType
-import com.turku.models.Postal
-import com.turku.models.Result
-import com.turku.models.SkillLevel
+import com.turku.models.*
 import com.turku.payload.LocalizedResultPayload
 import com.turku.repositories.*
 import io.ktor.server.application.*
@@ -48,22 +45,30 @@ suspend fun getProblemResults(call: ApplicationCall) {
             )
         }
 
-        var types = mutableListOf<ContentType>()
+        var contentTypes = mutableListOf<ContentType>()
         results.forEach{
-            types.add(
+            contentTypes.add(
                 ContentTypeRepo.getById(
                     it.appContentTypeId!!
                 )!!
             )
         }
-        print(skills.toString())
 
-        print(types.toString())
+        var serviceTypes = mutableListOf<ServiceType>()
+        services.forEach{
+            serviceTypes.add(
+                ServiceTypeRepo.getById(
+                    it.appServiceTypeId!!
+                )!!
+            )
+        }
+
+
         call.respondSuccess(
             mapOf(
                 "results" to results,
                 "skills" to skills,
-                "contentTypes" to types,
+                "contentTypes" to contentTypes,
                 "itemId" to item?.id,
                 "itemName" to item?.name,
                 "categoryId" to item?.appCategoryId,

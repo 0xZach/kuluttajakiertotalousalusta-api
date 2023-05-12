@@ -29,7 +29,7 @@ class ServiceRepository {
                 id = result.getString("id").toLong(),
                 appHriId = result.getString("app_hri_id"),
                 appBusinessId = result.getString("app_business_id"),
-                appServiceTypeId = result.getString("app_service_type_id"),
+                appServiceTypeId = result.getString("app_service_type_id").toLong(),
                 lang = result.getString("lang"),
                 name = result.getString("name"),
                 latitude = result.getString("latitude").toDouble(),

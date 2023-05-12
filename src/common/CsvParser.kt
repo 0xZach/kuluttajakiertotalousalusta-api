@@ -212,7 +212,7 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
                         appHriId = it[1]!!,
                         appBusinessId = it[2]!!,
                         problemIds = getProblemIds(it[3]!!),
-                        appServiceTypeId = it[4]!!,
+                        appServiceTypeId = it[4]!!.toLong(),
                         nameEN = it[5]!!,
                         nameFI = it[6]!!,
                         url = it[7]!!,
