@@ -248,7 +248,7 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         return mutableListOf<SkillLevelPayload>().apply {
             addAll(this@SpreadSheetUtil.get("Skill-levels").map {
                 return@map SkillLevelPayload(
-                    skillId = it[0]?.toInt()!!,
+                    appId = it[0]?.toLong()!!,
                     minSkillEN = it[1]!!,
                     minSkillFI = it[2]!!,
                 )
@@ -260,7 +260,7 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         return mutableListOf<ContentTypePayload>().apply {
             addAll(this@SpreadSheetUtil.get("Content-types").map {
                 return@map ContentTypePayload(
-                    typeId = it[0]?.toInt()!!,
+                    appId = it[0]?.toLong()!!,
                     contentTypeEN = it[1]!!,
                     contentTypeFI = it[2]!!,
                 )

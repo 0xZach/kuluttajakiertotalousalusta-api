@@ -15,6 +15,7 @@ class ContentTypeRepository {
 
     suspend fun create(contentType: ContentType): ContentType = DatabaseFactory.dbQuery {
         ContentTypeModel.new {
+            appId = contentType.appId!!
             label = contentType.label
             lang = contentType.lang
             createdAt = System.currentTimeMillis()

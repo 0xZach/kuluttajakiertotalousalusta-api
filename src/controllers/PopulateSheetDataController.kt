@@ -59,7 +59,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
         skillLevels.forEach{ itSkill ->
             SkillLevelRepo.create(
                 SkillLevel(
-                    id = itSkill.skillId.toLong(),
+                    appId = itSkill.appId,
                     label = itSkill.minSkillEN,
                     lang = "en-GB",
                     createdAt = System.currentTimeMillis(),
@@ -69,7 +69,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
 
             SkillLevelRepo.create(
                 SkillLevel(
-                    id = itSkill.skillId.toLong(),
+                    appId = itSkill.appId,
                     label = itSkill.minSkillFI,
                     lang = "fi-FI",
                     createdAt = System.currentTimeMillis(),
@@ -82,7 +82,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
         contentTypes.forEach{itContent ->
             ContentTypeRepo.create(
                 ContentType(
-                    id = itContent.typeId.toLong(),
+                    appId = itContent.appId,
                     label = itContent.contentTypeEN,
                     lang = "en-GB",
                     createdAt = System.currentTimeMillis(),
@@ -91,7 +91,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
             )
             ContentTypeRepo.create(
                 ContentType(
-                    id = itContent.typeId.toLong(),
+                    appId = itContent.appId,
                     label = itContent.contentTypeFI,
                     lang = "fi-FI",
                     createdAt = System.currentTimeMillis(),

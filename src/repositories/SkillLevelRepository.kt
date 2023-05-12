@@ -15,6 +15,7 @@ class SkillLevelRepository {
 
     suspend fun create(skillLevel: SkillLevel): SkillLevel = DatabaseFactory.dbQuery {
         SkillLevelModel.new {
+            appId = skillLevel.appId!!
             label = skillLevel.label
             lang = skillLevel.lang
             createdAt = System.currentTimeMillis()

@@ -1,7 +1,7 @@
 package com.turku.payload
 
 data class ContentTypePayload (
-    val typeId: Int,
+    val appId: Long,
     val contentTypeEN: String? = null,
     val contentTypeFI: String? = null,
 )
