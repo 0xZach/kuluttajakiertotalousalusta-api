@@ -39,7 +39,7 @@ create table problem_services (
 );
 
 create table service_types (
-	id bigserial primary key,
+	id bigint primary key,
 	type_name text,
 	lang text,
 	created_at bigint,
