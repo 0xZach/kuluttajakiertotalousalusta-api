@@ -58,7 +58,7 @@ suspend fun getProblemResults(call: ApplicationCall) {
         services.forEach{
             serviceTypes.add(
                 ServiceTypeRepo.getById(
-                    it.appServiceTypeId!!
+                    it.appServiceTypeId
                 )!!
             )
         }

@@ -268,6 +268,18 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         }
     }
 
+    fun getServiceTypes() : MutableList<ServiceTypePayload> {
+        return mutableListOf<ServiceTypePayload>().apply {
+            addAll(this@SpreadSheetUtil.get("Service-types").map {
+                return@map ServiceTypePayload(
+                    id = it[0]?.toInt()!!,
+                    typeEN = it[1]!!,
+                    typeFI = it[2]!!,
+                )
+            }.toTypedArray())
+        }
+    }
+
 
 
     private fun getMunicipalities(): MutableList<MunicipalityPayload> {

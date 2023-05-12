@@ -25,6 +25,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
         val problems = sheet.getProblems()
         val results = sheet.getResults()
         val services = sheet.getServices()
+        val serviceTypes = sheet.getServiceTypes()
         val logs = sheet.getLogs()
         val postals = sheet.getPostal()
 
@@ -92,6 +93,28 @@ suspend fun populateSheetData(call: ApplicationCall) {
                 ContentType(
                     id = itContent.typeId.toLong(),
                     label = itContent.contentTypeFI,
+                    lang = "fi-FI",
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
+                )
+            )
+        }
+
+
+        serviceTypes.forEach{ itServiceType ->
+            ServiceTypeRepo.create(
+                ServiceType(
+                    id = itServiceType.id.toLong(),
+                    typeName = itServiceType.typeEN,
+                    lang = "en-GB",
+                    createdAt = System.currentTimeMillis(),
+                    updatedAt = System.currentTimeMillis()
+                )
+            )
+            ServiceTypeRepo.create(
+                ServiceType(
+                    id = itServiceType.id.toLong(),
+                    typeName = itServiceType.typeFI,
                     lang = "fi-FI",
                     createdAt = System.currentTimeMillis(),
                     updatedAt = System.currentTimeMillis()
