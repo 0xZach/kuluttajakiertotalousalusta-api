@@ -39,8 +39,9 @@ suspend fun getProblemResults(call: ApplicationCall) {
         var skills = mutableListOf<SkillLevel>()
         results.forEach{
             skills.add(
-                SkillLevelRepo.getById(
-                    it.appSkillLevelId!!
+                SkillLevelRepo.getLocalizedById(
+                    it.appSkillLevelId!!,
+                    lang
                 )!!
             )
         }
@@ -48,8 +49,9 @@ suspend fun getProblemResults(call: ApplicationCall) {
         var contentTypes = mutableListOf<ContentType>()
         results.forEach{
             contentTypes.add(
-                ContentTypeRepo.getById(
-                    it.appContentTypeId!!
+                ContentTypeRepo.getLocalizedById(
+                    it.appContentTypeId!!,
+                    lang
                 )!!
             )
         }
@@ -57,8 +59,9 @@ suspend fun getProblemResults(call: ApplicationCall) {
         var serviceTypes = mutableListOf<ServiceType>()
         services.forEach{
             serviceTypes.add(
-                ServiceTypeRepo.getById(
-                    it.appServiceTypeId
+                ServiceTypeRepo.getLocalizedById(
+                    it.appServiceTypeId,
+                    lang
                 )!!
             )
         }

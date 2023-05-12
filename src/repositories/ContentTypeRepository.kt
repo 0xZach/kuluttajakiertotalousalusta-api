@@ -2,10 +2,12 @@ package com.turku.repositories
 
 import com.turku.DatabaseFactory
 import com.turku.models.*
+import org.jetbrains.exposed.sql.SortOrder
+import org.jetbrains.exposed.sql.and
 
 class ContentTypeRepository {
-    suspend fun getById(id: Long): ContentType? = DatabaseFactory.dbQuery {
-        ContentTypeModel.find { ContentTypeTable.appId eq id }.map { it.toContentType() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
+    suspend fun getLocalizedById(id: Long, lang: String): ContentType = DatabaseFactory.dbQuery {
+        ContentTypeModel.find { ContentTypeTable.appId eq id and (ContentTypeTable.lang eq lang) }.map { it.toContentType() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
     }
 
     suspend fun getAll(): List<ContentType?> = DatabaseFactory.dbQuery {

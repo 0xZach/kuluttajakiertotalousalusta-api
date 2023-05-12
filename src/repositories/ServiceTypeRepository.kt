@@ -2,10 +2,12 @@ package com.turku.repositories
 
 import com.turku.DatabaseFactory
 import com.turku.models.*
+import org.jetbrains.exposed.sql.SortOrder
+import org.jetbrains.exposed.sql.and
 
 class ServiceTypeRepository {
-    suspend fun getById(id: Long): ServiceType? = DatabaseFactory.dbQuery {
-        ServiceTypeModel.find { ServiceTypeTable.appId eq id }.map { it.toServiceType() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
+    suspend fun getLocalizedById(id: Long, lang: String): ServiceType = DatabaseFactory.dbQuery {
+        ServiceTypeModel.find { ServiceTypeTable.appId eq id and (ServiceTypeTable.lang eq lang) }.map { it.toServiceType() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
     }
 
     suspend fun getAll(): List<ServiceType?> = DatabaseFactory.dbQuery {

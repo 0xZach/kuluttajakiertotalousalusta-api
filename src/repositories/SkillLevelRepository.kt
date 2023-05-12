@@ -2,10 +2,12 @@ package com.turku.repositories
 
 import com.turku.DatabaseFactory
 import com.turku.models.*
+import org.jetbrains.exposed.sql.SortOrder
+import org.jetbrains.exposed.sql.and
 
 class SkillLevelRepository {
-    suspend fun getById(id: Long): SkillLevel? = DatabaseFactory.dbQuery {
-        SkillLevelModel.find { SkillLevelTable.appId eq id }.map { it.toSkill() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
+    suspend fun getLocalizedById(id: Long, lang: String): SkillLevel = DatabaseFactory.dbQuery {
+        SkillLevelModel.find { SkillLevelTable.appId eq id and (SkillLevelTable.lang eq lang) }.map { it.toSkill() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
     }
 
     suspend fun getAll(): List<SkillLevel?> = DatabaseFactory.dbQuery {
