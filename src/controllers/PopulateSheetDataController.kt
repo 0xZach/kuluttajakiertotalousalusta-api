@@ -104,7 +104,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
         serviceTypes.forEach{ itServiceType ->
             ServiceTypeRepo.create(
                 ServiceType(
-                    id = itServiceType.id.toLong(),
+                    appId = itServiceType.appId,
                     typeName = itServiceType.typeEN,
                     lang = "en-GB",
                     createdAt = System.currentTimeMillis(),
@@ -113,7 +113,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
             )
             ServiceTypeRepo.create(
                 ServiceType(
-                    id = itServiceType.id.toLong(),
+                    appId = itServiceType.appId,
                     typeName = itServiceType.typeFI,
                     lang = "fi-FI",
                     createdAt = System.currentTimeMillis(),

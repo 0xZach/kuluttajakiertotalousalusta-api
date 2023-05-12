@@ -272,7 +272,7 @@ class SpreadSheetUtil(private val spreadSheetId: String) {
         return mutableListOf<ServiceTypePayload>().apply {
             addAll(this@SpreadSheetUtil.get("Service-types").map {
                 return@map ServiceTypePayload(
-                    id = it[0]?.toInt()!!,
+                    appId = it[0]?.toLong()!!,
                     typeEN = it[1]!!,
                     typeFI = it[2]!!,
                 )

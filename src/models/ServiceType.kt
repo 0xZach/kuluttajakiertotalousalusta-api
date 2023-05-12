@@ -6,6 +6,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.LongIdTable
 
 object ServiceTypeTable : LongIdTable("service_types", "id") {
+    val appId = long("app_id")
     val typeName = varchar("type_name", 255).nullable()
     val lang = varchar("lang", 255).nullable()
     val createdAt = long("created_at")
@@ -15,6 +16,7 @@ object ServiceTypeTable : LongIdTable("service_types", "id") {
 class ServiceTypeModel(id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<ServiceTypeModel>(ServiceTypeTable)
 
+    var appId by ServiceTypeTable.appId
     var typeName by ServiceTypeTable.typeName
     var lang by ServiceTypeTable.lang
     var updatedAt by ServiceTypeTable.updatedAt
@@ -22,6 +24,7 @@ class ServiceTypeModel(id: EntityID<Long>) : LongEntity(id) {
 
     fun toServiceType() = ServiceType(
         id = id.value,
+        appId = appId,
         typeName = typeName,
         lang = lang,
         createdAt = createdAt,
@@ -31,6 +34,7 @@ class ServiceTypeModel(id: EntityID<Long>) : LongEntity(id) {
 
 data class ServiceType(
     val id: Long? = null,
+    val appId: Long? = null,
     val typeName: String? = null,
     val lang: String? = null,
     val createdAt: Long,
