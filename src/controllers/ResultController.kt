@@ -69,6 +69,7 @@ suspend fun getProblemResults(call: ApplicationCall) {
                 "results" to results,
                 "skills" to skills,
                 "contentTypes" to contentTypes,
+                "serviceTypes" to serviceTypes,
                 "itemId" to item?.id,
                 "itemName" to item?.name,
                 "categoryId" to item?.appCategoryId,
