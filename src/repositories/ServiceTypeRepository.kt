@@ -4,6 +4,7 @@ import com.turku.DatabaseFactory
 import com.turku.models.ServiceType
 import com.turku.models.ServiceTypeModel
 import com.turku.models.ServiceTypeTable
+import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 class ServiceTypeRepository {
@@ -20,7 +21,7 @@ class ServiceTypeRepository {
     }
 
     suspend fun create(serviceType: ServiceType): ServiceType = DatabaseFactory.dbQuery {
-        ServiceTypeModel.new {
+        ServiceTypeModel.new(serviceType.id) {
             typeName = serviceType.typeName
             lang = serviceType.lang
             createdAt = System.currentTimeMillis()
