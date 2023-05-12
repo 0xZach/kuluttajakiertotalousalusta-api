@@ -1,12 +1,11 @@
 package com.turku.repositories
 
 import com.turku.DatabaseFactory
-import com.turku.models.SkillLevel
-import com.turku.models.SkillLevelModel
+import com.turku.models.*
 
 class SkillLevelRepository {
     suspend fun getById(id: Long): SkillLevel? = DatabaseFactory.dbQuery {
-        SkillLevelModel.findById(id)?.toSkill()
+        SkillLevelModel.find { SkillLevelTable.appId eq id }.map { it.toSkill() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
     }
 
     suspend fun getAll(): List<SkillLevel?> = DatabaseFactory.dbQuery {

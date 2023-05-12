@@ -1,12 +1,11 @@
 package com.turku.repositories
 
 import com.turku.DatabaseFactory
-import com.turku.models.ContentType
-import com.turku.models.ContentTypeModel
+import com.turku.models.*
 
 class ContentTypeRepository {
     suspend fun getById(id: Long): ContentType? = DatabaseFactory.dbQuery {
-        ContentTypeModel.findById(id)?.toContentType()
+        ContentTypeModel.find { ContentTypeTable.appId eq id }.map { it.toContentType() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
     }
 
     suspend fun getAll(): List<ContentType?> = DatabaseFactory.dbQuery {

@@ -1,13 +1,11 @@
 package com.turku.repositories
 
 import com.turku.DatabaseFactory
-import com.turku.models.ServiceType
-import com.turku.models.ServiceTypeModel
-import com.turku.models.ServiceTypeTable
+import com.turku.models.*
 
 class ServiceTypeRepository {
     suspend fun getById(id: Long): ServiceType? = DatabaseFactory.dbQuery {
-        ServiceTypeModel.findById(id)?.toServiceType()
+        ServiceTypeModel.find { ServiceTypeTable.appId eq id }.map { it.toServiceType() }[0]  // TO DO: GO BACK TO NORMAL ID WHEN FIXED DUPLICATION
     }
 
     suspend fun getAll(): List<ServiceType?> = DatabaseFactory.dbQuery {
