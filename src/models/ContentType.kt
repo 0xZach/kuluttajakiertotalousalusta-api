@@ -16,7 +16,7 @@ object ContentTypeTable : LongIdTable("content_type", "id") {
 class ContentTypeModel(id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<ContentTypeModel>(ContentTypeTable)
 
-    var appId by SkillLevelTable.appId
+    var appId by ContentTypeTable.appId
     var label by ContentTypeTable.label
     var lang by ContentTypeTable.lang
     var updatedAt by ContentTypeTable.updatedAt
