@@ -4,8 +4,6 @@ import com.turku.DatabaseFactory
 import com.turku.models.ServiceType
 import com.turku.models.ServiceTypeModel
 import com.turku.models.ServiceTypeTable
-import org.jetbrains.exposed.dao.id.EntityID
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 class ServiceTypeRepository {
     suspend fun getById(id: Long): ServiceType? = DatabaseFactory.dbQuery {
