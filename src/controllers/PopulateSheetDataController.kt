@@ -295,7 +295,7 @@ suspend fun populateSheetData(call: ApplicationCall) {
                 )
             )
 
-            ServiceRepo.create(
+            val serviceFi = ServiceRepo.create(
                 Service(
                     id = itService.appServiceId,
                     appHriId = itService.appHriId,
@@ -323,6 +323,15 @@ suspend fun populateSheetData(call: ApplicationCall) {
                     ProblemService(
                         problemId = itProblem.id,
                         serviceId = serviceEn.id,
+                        createdAt = System.currentTimeMillis(),
+                        updatedAt = System.currentTimeMillis()
+                    )
+                )
+
+                ProblemServiceRepo.create(
+                    ProblemService(
+                        problemId = itProblem.id,
+                        serviceId = serviceFi.id,
                         createdAt = System.currentTimeMillis(),
                         updatedAt = System.currentTimeMillis()
                     )
