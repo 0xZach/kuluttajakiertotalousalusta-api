@@ -9,7 +9,7 @@ import io.ktor.server.application.*
 
 suspend fun getContentTypes(call: ApplicationCall) {
     try {
-        val contentTypes = ContentTypeRepo.getAll()
+        val contentTypes = ContentTypeRepo.getAllByLocale(call.request.headers["Accept-Language"]!!)
         if (contentTypes.isEmpty()) return call.respondError(422, "SKILL_LEVELS_NOT_FOUND")
         call.respondSuccess(mapOf("contentTypes" to contentTypes), "TYPES")
     } catch (error: Exception) {

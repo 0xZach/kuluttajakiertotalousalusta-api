@@ -14,6 +14,10 @@ class ContentTypeRepository {
         ContentTypeModel.all().map { it.toContentType() }
     }
 
+    suspend fun getAllByLocale(lang: String): List<ContentType?> = DatabaseFactory.dbQuery {
+        ContentTypeModel.find { ContentTypeTable.lang eq lang }.map { it.toContentType() }
+    }
+
     suspend fun create(contentType: ContentType): ContentType = DatabaseFactory.dbQuery {
         ContentTypeModel.new {
             appId = contentType.appId!!

@@ -9,7 +9,7 @@ import io.ktor.server.application.*
 
 suspend fun getSkillLevels(call: ApplicationCall) {
     try {
-        val skillLevels = SkillLevelRepo.getAll()
+        val skillLevels = SkillLevelRepo.getAllByLocale(call.request.headers["Accept-Language"]!!)
         if (skillLevels.isEmpty()) return call.respondError(422, "SKILL_LEVELS_NOT_FOUND")
         call.respondSuccess(mapOf("skillLevels" to skillLevels), "SKILLS")
     } catch (error: Exception) {

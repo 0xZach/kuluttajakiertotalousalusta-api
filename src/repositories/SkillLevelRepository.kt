@@ -2,7 +2,6 @@ package com.turku.repositories
 
 import com.turku.DatabaseFactory
 import com.turku.models.*
-import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.and
 
 class SkillLevelRepository {
@@ -12,6 +11,10 @@ class SkillLevelRepository {
 
     suspend fun getAll(): List<SkillLevel?> = DatabaseFactory.dbQuery {
         SkillLevelModel.all().map { it.toSkill() }
+    }
+
+    suspend fun getAllByLocale(lang: String): List<SkillLevel?> = DatabaseFactory.dbQuery {
+        SkillLevelModel.find { SkillLevelTable.lang eq lang }.map { it.toSkill() }
     }
 
     suspend fun create(skillLevel: SkillLevel): SkillLevel = DatabaseFactory.dbQuery {
